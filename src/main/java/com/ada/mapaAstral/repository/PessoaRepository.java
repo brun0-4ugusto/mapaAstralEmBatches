@@ -44,7 +44,7 @@ public class PessoaRepository {
 
         try (Stream<String> fileStream = Files.lines(path, StandardCharsets.UTF_8)) {
 
-            var pessoas = fileStream
+            var pessoas = fileStream.parallel()
                     .map(Util::createPessoaFromLine)
                     .toList();
 

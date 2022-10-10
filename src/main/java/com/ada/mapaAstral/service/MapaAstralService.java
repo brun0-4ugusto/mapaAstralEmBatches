@@ -39,7 +39,7 @@ public class MapaAstralService {
 
         List<MapaAstral> mapasAstrais = criarMapasAstrais(pessoas);
 
-        mapasAstrais.forEach(this::persistirMapaAstral);
+        mapasAstrais.stream().parallel().forEach(this::persistirMapaAstral);
     }
 
     public OneOf<IllegalArgumentException, DataFormatException, IOException, MapaAstralCreatedResponse> lidaComArquivoEnviado(MultipartFile file) {
@@ -73,6 +73,7 @@ public class MapaAstralService {
     private List<MapaAstral> criarMapasAstrais(List<Pessoa> pessoas) {
 
         return pessoas.stream()
+                .parallel()
                 .map(this::montarMapaAstral)
                 .toList();
     }
